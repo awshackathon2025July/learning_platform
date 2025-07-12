@@ -1,10 +1,21 @@
 version: 1.0
-runtime: docker
+runtime: python3
 build:
   commands:
     build:
-      - docker build -t myapp .
+      - echo "=== Python version ==="
+      - python3 --version
+      - echo "=== Installing packages ==="
+      - pip3 install --upgrade pip
+      - pip3 install --no-cache-dir -r requirements.txt
+      - echo "=== Verifying gunicorn installation ==="
+      - pip3 show gunicorn
+      - python3 -c "import gunicorn; print('gunicorn found')"
 run:
-  command: python -m gunicorn --bind 0.0.0.0:8000 app:app
+  runtime-version: 3.11
+  command: python3 -m gunicorn --bind 0.0.0.0:8000 --workers 1 app:app
   network:
     port: 8000
+  env:
+    - name: PYTHONPATH
+      value: /app
