@@ -12,7 +12,6 @@ build:
       - pip3 show gunicorn
       - python3 -c "import gunicorn; print('gunicorn found')"
 run:
-  runtime-version: 3.11
   command: python3 -m gunicorn --bind 0.0.0.0:8000 --workers 1 app:app
   network:
     port: 8000
