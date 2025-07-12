@@ -1,5 +1,10 @@
 version: 1.0
+runtime: docker
 build:
-  image:
-    dockerfile: Dockerfile
-    source_directory: .
+  commands:
+    build:
+      - docker build -t myapp .
+run:
+  command: python -m gunicorn --bind 0.0.0.0:8000 app:app
+  network:
+    port: 8000
