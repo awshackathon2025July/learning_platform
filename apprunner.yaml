@@ -2,7 +2,6 @@ version: 1.0
 runtime: python3
 build:
   commands:
-    build:
       - pip3 install --upgrade pip
       - pip3 install --no-cache-dir -r requirements.txt
       - echo "=== Moving to rival-backend directory ==="
