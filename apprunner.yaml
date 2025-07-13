@@ -7,19 +7,11 @@ build:
       - pip3 install --no-cache-dir -r requirements.txt
       - echo "=== Moving to rival-backend directory ==="
       - cd rival-backend && ls -la
-      - echo "=== Testing import ==="
-      - >
-        cd rival-backend && python3 -c '
-        try:
-          from src.main import app;
-          print('Import successful');
-          print('App object:', app);
-        except Exception as e:
-          print('Import failed:', e);
-          import traceback;
-          traceback.print_exc();
-          exit(1)
-        "
+      - echo "=== Before import test ==="
+      - cd rival-backend && python3 -c "print('Python is working'); exit(0)"
+      - echo "=== After basic Python test ==="
+      - cd rival-backend && python3 -c "from src.main import app; print('Import successful'); exit(0)"
+      - echo "=== After import test ==="
 run:
   command: sh -c "cd rival-backend && python3 -m gunicorn --bind 0.0.0.0:8080 --workers 1 src.main:app"
   network:
