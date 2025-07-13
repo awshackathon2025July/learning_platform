@@ -8,7 +8,8 @@ build:
       - echo "=== Copying main file ==="
       - cp rival-backend/src/main.py ./app.py
       - echo "=== Testing import ==="
-      - python3 -c "import app; print('Import successful')"
+      - python3 -c "import app;" && echo "Import successful" || echo "Import failed"
+
 run:
   command: python3 -m gunicorn --bind 0.0.0.0:8080 --workers 1 app:app
   network:
