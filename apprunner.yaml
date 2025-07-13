@@ -3,18 +3,16 @@ runtime: python3
 build:
   commands:
     build:
-      - echo "=== Python version ==="
-      - python3 --version
-      - echo "=== Installing packages ==="
       - pip3 install --upgrade pip
       - pip3 install --no-cache-dir -r requirements.txt
-      - echo "=== Verifying gunicorn installation ==="
-      - pip3 show gunicorn
-      - python3 -c "import gunicorn; print('gunicorn found')"
+      - echo "=== Copying main file ==="
+      - cp rival-backend/src/main.py ./app.py
+      - echo "=== Testing import ==="
+      - python3 -c "import app; print('Import successful')"
 run:
-  command: python3 -m gunicorn --bind 0.0.0.0:8000 --workers 1 rival-backend.src.main:app
+  command: python3 -m gunicorn --bind 0.0.0.0:8080 --workers 1 app:app
   network:
-    port: 8000
+    port: 8080
   env:
     - name: PYTHONPATH
       value: /app
