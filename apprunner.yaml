@@ -7,7 +7,8 @@ build:
       - cd rival-backend && pip3 install --no-cache-dir -r ../requirements.txt
 
 run:
-  command: cd rival-backend && python3 -m gunicorn --bind 0.0.0.0:8080 --workers 1 src.main:app
+  # command: cd rival-backend && python3 -m gunicorn --bind 0.0.0.0:8080 --workers 1 src.main:app
+  command: cd rival-backend && python3 -m http.server 8080
   network:
     port: 8080
   env:
