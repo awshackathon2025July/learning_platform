@@ -16,6 +16,7 @@ load_dotenv()
 # DON'T CHANGE THIS !!!
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
+print("DEBUG")
 
 app = Flask(__name__)
 
