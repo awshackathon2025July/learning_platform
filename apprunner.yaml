@@ -1,18 +1,22 @@
 version: 1.0
 runtime: python3
 build:
-  commands:
-      - pip3 install --upgrade pip
-      - pip3 install --no-cache-dir -r requirements.txt
-      - echo "=== Moving to rival-backend directory ==="
-      - cd rival-backend && ls -la
-      - echo "=== Before import test ==="
-      - cd rival-backend && python3 -c "print('Python is working'); exit(0)"
-      - echo "=== After basic Python test ==="
-      - cd rival-backend && python3 -c "from src.main import app; print('Import successful'); exit(0)"
-      - echo "Python import test exit code: $?"
-      - echo "=== After import test ==="
+  # 'commands:' を 'pre-build:' に変更
+  pre-build:
+    - pip3 install --upgrade pip
+    - pip3 install --no-cache-dir -r requirements.txt
+    - echo "=== Moving to rival-backend directory ==="
+    - cd rival-backend && ls -la
+    - echo "=== Before import test ==="
+    - cd rival-backend && python3 -c "print('Python is working'); exit(0)"
+    - echo "=== After basic Python test ==="
+    - cd rival-backend && python3 -c "from src.main import app; print('Import successful'); exit(0)"
+    - echo "Python import test exit code: $?"
+    - echo "=== After import test ==="
 run:
-  command: sh -c "cd rival-backend && python3 -m gunicorn --bind 0.0.0.0:8080 --workers 1 src.main:app"
+  # 毎回cdする必要がないように、作業ディレクトリを指定
+  working_directory: /rival-backend
+  # 作業ディレクトリを指定したので、cdコマンドは不要
+  command: python3 -m gunicorn --bind 0.0.0.0:8080 --workers 1 src.main:app
   network:
     port: 8080
