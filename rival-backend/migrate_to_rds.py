@@ -97,10 +97,9 @@ def migrate_data():
 
 
 if __name__ == "__main__":
-    # if not os.path.exists(os.path.join(os.path.dirname(__file__), 'src', 'database', 'app.db')):
-    #         print("SQLiteデータベースファイルが見つかりません")
-    #         sys.exit(1)
+    if not os.path.exists(os.path.join(os.path.dirname(__file__), 'src', 'database', 'app.db')):
+            print("SQLiteデータベースファイルが見つかりません")
+            sys.exit(1)
 
-    # success = migrate_data()
-    # sys.exit(0 if success else 1)
-    pass
+    success = migrate_data()
+    sys.exit(0 if success else 1)

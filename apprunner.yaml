@@ -10,7 +10,8 @@ build:
       - echo "=== Before import test ==="
       - cd rival-backend && python3 -c "print('Python is working'); exit(0)"
       - echo "=== After basic Python test ==="
-      - cd rival-backend && APP_ENV=build python3 -c "from src.main import app; print('Import successful'); exit(0)"
+      - cd rival-backend && python3 -c "from src.main import app; print('Import successful'); exit(0)"
+      - echo "Python import test exit code: $?"
       - echo "=== After import test ==="
 run:
   command: sh -c "cd rival-backend && python3 -m gunicorn --bind 0.0.0.0:8080 --workers 1 src.main:app"
